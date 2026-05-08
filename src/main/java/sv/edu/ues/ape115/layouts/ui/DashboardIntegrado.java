@@ -7,256 +7,159 @@ import java.awt.*;
 /**
  * Requerimiento R05 — Dashboard Integrado: todos los layouts.
  *
- * @author (nombre del estudiante)
+ * Estructura requerida (TODOS los layouts del laboratorio en una sola ventana):
+ *
+ *  JFrame  BorderLayout(8,8)
+ *  ├── NORTH  → JPanel FlowLayout(LEFT)   título + 2 tarjetas de estadística
+ *  │            Borde: MatteBorder(0,0,2,0) azul  ← RN-R05.1
+ *  │            Las tarjetas tienen LineBorder     ← RN-R05.1
+ *  ├── WEST   → JPanel BoxLayout(Y_AXIS)  4 botones de módulo  ancho 170px
+ *  │            Borde: CompoundBorder TitledBorder("Módulos")  ← RN-R05.1
+ *  ├── CENTER → JSplitPane(resizeWeight=0.70)                  ← RN-R05.4
+ *  │    ├── Izquierda: JTabbedPane  3 pestañas                 ← RN-R05.2
+ *  │    │    ├── "Resumen"   → JPanel GridLayout(2,3)  6 tarjetas EtchedBorder  ← RN-R05.3
+ *  │    │    ├── "Productos" → JTable en JScrollPane
+ *  │    │    └── "Actividad" → JTextArea en JScrollPane
+ *  │    └── Derecha: JPanel GridBagLayout  formulario rápido 3 campos + botón
+ *  │                 Borde: CompoundBorder TitledBorder         ← RN-R05.5
+ *  └── SOUTH  → JPanel FlowLayout(RIGHT)  estado + 2 botones
+ *               Borde: MatteBorder(1,0,0,0)                    ← RN-R05.1
+ *
+ * Reglas de negocio:
+ *   RN-R05.1 Cada región del BorderLayout tiene un borde distinto.
+ *   RN-R05.2 JTabbedPane con 3 pestañas con contenido real (no vacías).
+ *   RN-R05.3 Pestaña Resumen: GridLayout(2,3) con 6 tarjetas + EtchedBorder.
+ *   RN-R05.4 JSplitPane: setResizeWeight(0.70).
+ *   RN-R05.5 Todos los paneles de sección usan CompoundBorder.
+ *   setMinimumSize(900, 550) obligatorio.
+ *
+ * @author (escribe tu nombre aquí)
  */
 public class DashboardIntegrado extends JFrame {
 
     public DashboardIntegrado() {
         super("R05 — Dashboard Integrado — Todos los Layouts");
-        construirUI();
-        setSize(1100, 680);
-        setMinimumSize(new Dimension(900, 550));   // RN-R05.5
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        // TODO: construirUI()
+        // TODO: setSize(1100, 680)
+        // TODO: setMinimumSize(new Dimension(900, 550))   ← obligatorio, lo verifica test T06.5
+        // TODO: setDefaultCloseOperation(EXIT_ON_CLOSE)
+        // TODO: setLocationRelativeTo(null)
     }
 
     private void construirUI() {
-        JPanel root = new JPanel(new BorderLayout(8, 8));
-        root.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
-        setContentPane(root);
-
-        root.add(crearNorth(),  BorderLayout.NORTH);
-        root.add(crearWest(),   BorderLayout.WEST);
-        root.add(crearCentro(), BorderLayout.CENTER);
-        root.add(crearSouth(),  BorderLayout.SOUTH);
+        // TODO: JPanel root = new JPanel(new BorderLayout(8, 8))
+        // TODO: root.setBorder(EmptyBorder(8,10,8,10))
+        // TODO: setContentPane(root)
+        // TODO: root.add(crearNorth(),  BorderLayout.NORTH)
+        // TODO: root.add(crearWest(),   BorderLayout.WEST)
+        // TODO: root.add(crearCentro(), BorderLayout.CENTER)
+        // TODO: root.add(crearSouth(),  BorderLayout.SOUTH)
     }
 
-    // ── NORTH: FlowLayout + MatteBorder inferior ──────────────────
     private JPanel crearNorth() {
-        JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT, 16, 8));
-        // TODO R05: MatteBorder de 2px azul solo en el borde inferior
-        p.setBorder(BorderFactory.createMatteBorder(
-            0, 0, 2, 0, new Color(25, 118, 210)));
-
-        JLabel titulo = new JLabel("📊  Dashboard — APE 115 G0301");
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 17));
-        titulo.setForeground(new Color(25, 118, 210));
-
-        // Tarjetas de estadística con LineBorder (RN-R05.1)
-        p.add(titulo);
-        p.add(Box.createHorizontalStrut(20));
-        p.add(tarjetaStat("Total Productos", "8",   new Color(25,118,210)));
-        p.add(Box.createHorizontalStrut(8));
-        p.add(tarjetaStat("Total Clientes",  "142", new Color(46,125,50)));
-        return p;
+        // TODO: FlowLayout(LEFT, 16, 8)
+        // TODO: MatteBorder(0, 0, 2, 0, azul)   ← RN-R05.1
+        // TODO: JLabel título
+        // TODO: Box.createHorizontalStrut(20)
+        // TODO: tarjetaStat("Total Productos", "8",  azul)
+        // TODO: tarjetaStat("Total Clientes",  "142", verde)
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
-    private JPanel tarjetaStat(String lbl, String val, Color color) {
-        JPanel card = new JPanel(new BorderLayout(4, 0));
-        // LineBorder en las tarjetas de estadística
-        card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(color, 2),
-            BorderFactory.createEmptyBorder(6, 14, 6, 14)
-        ));
-        JLabel lblVal = new JLabel(val, SwingConstants.CENTER);
-        lblVal.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lblVal.setForeground(color);
-        JLabel lblN = new JLabel(lbl, SwingConstants.CENTER);
-        lblN.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        lblN.setForeground(new Color(80, 80, 100));
-        card.add(lblVal, BorderLayout.CENTER);
-        card.add(lblN,   BorderLayout.SOUTH);
-        return card;
+    /** Tarjeta pequeña con valor estadístico y LineBorder de color. */
+    private JPanel tarjetaStat(String etiqueta, String valor, Color color) {
+        // TODO: new JPanel(new BorderLayout(4, 0))
+        // TODO: CompoundBorder: LineBorder(color, 2) + EmptyBorder(6,14,6,14)
+        // TODO: JLabel valor  → fuente Segoe UI Bold 22, color dado
+        // TODO: JLabel etiqueta → fuente Segoe UI Plain 11, gris
+        // TODO: return tarjeta
+        return new JPanel(); // reemplazar
     }
 
-    // ── WEST: BoxLayout + CompoundBorder 'Módulos' ────────────────
     private JPanel crearWest() {
-        JPanel p = new JPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-        p.setBackground(new Color(245, 247, 252));
-        p.setPreferredSize(new Dimension(170, 0));
-
-        // TODO R05: CompoundBorder con TitledBorder 'Módulos'
-        p.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-                "Módulos", TitledBorder.LEFT, TitledBorder.TOP,
-                new Font("Segoe UI", Font.BOLD, 12),
-                new Color(25, 118, 210)
-            ),
-            BorderFactory.createEmptyBorder(6, 8, 6, 8)
-        ));
-
-        for (String item : new String[]{"📦 Productos","👤 Clientes","📈 Reportes","⚙ Config"}) {
-            JButton btn = new JButton(item);
-            btn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-            btn.setAlignmentX(Component.LEFT_ALIGNMENT);
-            btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-            btn.setBackground(new Color(220, 232, 252));
-            btn.setFocusPainted(false);
-            btn.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
-            p.add(btn);
-            p.add(Box.createVerticalStrut(5));
-        }
-        p.add(Box.createVerticalGlue());
-        return p;
+        // TODO: new JPanel(); setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS))
+        //       ← BoxLayout requerido por test T06.4
+        // TODO: setBackground(new Color(245, 247, 252))
+        // TODO: setPreferredSize(new Dimension(170, 0))
+        // TODO: CompoundBorder: TitledBorder("Módulos", EtchedBorder, azul) + EmptyBorder
+        //       ← RN-R05.5
+        // TODO: Para cada item {"📦 Productos","👤 Clientes","📈 Reportes","⚙ Config"}:
+        //         JButton; setAlignmentX(LEFT); setMaximumSize(MAX, 36); etc.
+        // TODO: panel.add(Box.createVerticalGlue())
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
-    // ── CENTER: JSplitPane (JTabbedPane | formulario rápido) ──────
     private JSplitPane crearCentro() {
-        JSplitPane sp = new JSplitPane(
-            JSplitPane.HORIZONTAL_SPLIT,
-            crearTabbedPane(),
-            crearFormularioRapido()
-        );
-        sp.setDividerLocation(520);
-        sp.setResizeWeight(0.70);   // RN-R05.4
-        sp.setOneTouchExpandable(true);
-        return sp;
+        // TODO: new JSplitPane(HORIZONTAL_SPLIT, crearTabbedPane(), crearFormularioRapido())
+        // TODO: setDividerLocation(520)
+        // TODO: setResizeWeight(0.70)   ← RN-R05.4, lo verifica test T06.2
+        // TODO: setOneTouchExpandable(true)
+        // TODO: return split
+        return new JSplitPane(); // reemplazar
     }
 
-    // JTabbedPane con 3 pestañas
     private JTabbedPane crearTabbedPane() {
-        JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
-        tabs.addTab("Resumen",   null, crearPestanaResumen(),   "Estadísticas rápidas");
-        tabs.addTab("Productos", null, crearPestanaProductos(), "Tabla de productos");
-        tabs.addTab("Actividad", null, crearPestanaActividad(), "Registro de actividad");
-        return tabs;
+        // TODO: new JTabbedPane(JTabbedPane.TOP)
+        // TODO: addTab("Resumen",   null, crearPestanaResumen(),   "Estadísticas rápidas")
+        // TODO: addTab("Productos", null, crearPestanaProductos(), "Tabla de productos")
+        // TODO: addTab("Actividad", null, crearPestanaActividad(), "Registro de actividad")
+        //       ← 3 pestañas requeridas por test T06.3
+        // TODO: return tabs
+        return new JTabbedPane(); // reemplazar
     }
 
-    // Pestaña 1: GridLayout(2,3) con tarjetas EtchedBorder
     private JPanel crearPestanaResumen() {
-        JPanel p = new JPanel(new GridLayout(2, 3, 8, 8));
-        p.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        String[][] stats = {
-            {"Ventas Hoy","$1,240"},{"Stock Bajo","3"},
-            {"Clientes","142"},{"Pedidos","7"},
-            {"Devoluciones","2"},{"Ganancia Mes","$18,420"}
-        };
-        for (String[] s : stats) {
-            JPanel card = new JPanel(new BorderLayout(2, 2));
-            // EtchedBorder en las tarjetas del resumen (RN-R05.3)
-            card.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-                BorderFactory.createEmptyBorder(8, 10, 8, 10)
-            ));
-            card.setBackground(new Color(250, 252, 255));
-            JLabel val = new JLabel(s[1], SwingConstants.CENTER);
-            val.setFont(new Font("Segoe UI", Font.BOLD, 20));
-            val.setForeground(new Color(25, 118, 210));
-            JLabel lbl = new JLabel(s[0], SwingConstants.CENTER);
-            lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-            card.add(val, BorderLayout.CENTER);
-            card.add(lbl, BorderLayout.SOUTH);
-            p.add(card);
-        }
-        return p;
+        // TODO: GridLayout(2, 3, 8, 8)   ← RN-R05.3
+        // TODO: EmptyBorder(10,10,10,10)
+        // TODO: 6 tarjetas con EtchedBorder(LOWERED)  ← RN-R05.3
+        //       Datos: "Ventas Hoy"/$1,240 | "Stock Bajo"/3 | "Clientes"/142
+        //              "Pedidos"/7         | "Devoluciones"/2| "Ganancia Mes"/$18,420
+        //       Cada tarjeta: BorderLayout; valor en CENTER (negrita azul); etiqueta en SOUTH
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
-    // Pestaña 2: JTable en JScrollPane
     private JPanel crearPestanaProductos() {
-        JPanel p = new JPanel(new BorderLayout());
-        p.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        String[] cols = {"Nombre", "Categoría", "Precio", "Stock"};
-        Object[][] rows = {
-            {"Laptop Dell","Electrónica",899.99,12},
-            {"Monitor LG","Electrónica",249.50,30},
-            {"Teclado Mec.","Accesorios",89.00,50},
-            {"Silla Ergon.","Hogar",320.00,8},
-        };
-        JTable tbl = new JTable(rows, cols);
-        tbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        tbl.setRowHeight(26);
-        p.add(new JScrollPane(tbl), BorderLayout.CENTER);
-        return p;
+        // TODO: BorderLayout + EmptyBorder
+        // TODO: JTable con columnas: Nombre, Categoría, Precio, Stock
+        //       4 filas de datos de ejemplo en JScrollPane
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
-    // Pestaña 3: JTextArea de actividad
     private JPanel crearPestanaActividad() {
-        JPanel p = new JPanel(new BorderLayout());
-        p.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        JTextArea tx = new JTextArea();
-        tx.setFont(new Font("Courier New", Font.PLAIN, 12));
-        tx.setEditable(false);
-        tx.setText(
-            "[10:30] admin inició sesión\n" +
-            "[10:32] Producto 'Laptop Dell' actualizado\n" +
-            "[10:45] Nuevo cliente: Juan García\n" +
-            "[11:02] Pedido #1042 procesado\n" +
-            "[11:15] Exportación de reporte generada");
-        p.add(new JScrollPane(tx), BorderLayout.CENTER);
-        return p;
+        // TODO: BorderLayout + EmptyBorder
+        // TODO: JTextArea no editable con 5 líneas de log de ejemplo
+        //       en JScrollPane
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
-    // Formulario rápido (derecha del JSplitPane)
     private JPanel crearFormularioRapido() {
-        JPanel p = new JPanel(new GridBagLayout());
-        // TODO R05: CompoundBorder con TitledBorder 'Agregar Rápido'
-        p.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),
-                "Agregar Producto Rápido",
-                TitledBorder.LEFT, TitledBorder.TOP,
-                new Font("Segoe UI", Font.BOLD, 12),
-                new Color(25, 118, 210)
-            ),
-            BorderFactory.createEmptyBorder(8, 10, 8, 10)
-        ));
-
-        GridBagConstraints g = new GridBagConstraints();
-        g.insets = new Insets(6, 6, 6, 6);
-        g.anchor = GridBagConstraints.WEST;
-
-        String[] lbls = {"Nombre:", "Precio $:", "Stock:"};
-        for (int i = 0; i < lbls.length; i++) {
-            g.gridx=0; g.gridy=i; g.fill=GridBagConstraints.NONE; g.weightx=0;
-            JLabel l = new JLabel(lbls[i]);
-            l.setFont(new Font("Segoe UI",Font.PLAIN,13));
-            p.add(l, g);
-            g.gridx=1; g.fill=GridBagConstraints.HORIZONTAL; g.weightx=1;
-            JTextField tf = new JTextField(14);
-            tf.setFont(new Font("Segoe UI",Font.PLAIN,13));
-            p.add(tf, g);
-        }
-
-        g.gridx=0; g.gridy=3; g.gridwidth=2;
-        g.fill=GridBagConstraints.NONE; g.weightx=0;
-        g.anchor=GridBagConstraints.EAST;
-        JButton btnAgregar = new JButton("Agregar");
-        btnAgregar.setBackground(new Color(25,118,210));
-        btnAgregar.setForeground(Color.WHITE);
-        btnAgregar.setFocusPainted(false); btnAgregar.setBorderPainted(false);
-        btnAgregar.setOpaque(true);
-        p.add(btnAgregar, g);
-
-        g.gridx=0; g.gridy=4; g.gridwidth=2;
-        g.fill=GridBagConstraints.BOTH; g.weighty=1;
-        p.add(new JPanel(), g);
-
-        return p;
+        // TODO: new JPanel(new GridBagLayout())
+        // TODO: CompoundBorder: TitledBorder("Agregar Producto Rápido") + EmptyBorder ← RN-R05.5
+        // TODO: GridBagConstraints; 3 filas: Nombre, Precio $, Stock (etiqueta + JTextField)
+        // TODO: Fila 3: JButton "Agregar" alineado a la derecha (anchor=EAST)
+        // TODO: Fila 4: relleno vertical (fill=BOTH, weighty=1)
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
-    // ── SOUTH: FlowLayout + MatteBorder superior ──────────────────
     private JPanel crearSouth() {
-        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 6));
-        p.setBorder(BorderFactory.createMatteBorder(
-            1, 0, 0, 0, new Color(200, 210, 230)));
-
-        JLabel lblEstado = new JLabel("Estado: Sistema activo");
-        lblEstado.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblEstado.setForeground(new Color(80, 80, 100));
-
-        JButton btnExportar   = boton("Exportar",   new Color(100, 100, 100));
-        JButton btnActualizar = boton("Actualizar", new Color( 25, 118, 210));
-
-        p.add(lblEstado);
-        p.add(Box.createHorizontalStrut(20));
-        p.add(btnExportar);
-        p.add(btnActualizar);
-        return p;
+        // TODO: FlowLayout(RIGHT, 10, 6)
+        // TODO: MatteBorder(1, 0, 0, 0, ...)   ← RN-R05.1
+        // TODO: JLabel "Estado: Sistema activo" (gris)
+        // TODO: Box.createHorizontalStrut(20)
+        // TODO: JButton "Exportar"   (gris)
+        // TODO: JButton "Actualizar" (azul)
+        // TODO: return panel
+        return new JPanel(); // reemplazar
     }
 
+    // ── Helper: botón estándar ────────────────────────────────────
+    // NO modificar.
     private JButton boton(String label, Color color) {
         JButton btn = new JButton(label);
         btn.setFont(new Font("Segoe UI", Font.PLAIN, 13));

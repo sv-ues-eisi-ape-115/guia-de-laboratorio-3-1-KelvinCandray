@@ -5,7 +5,9 @@ import javax.swing.SwingUtilities;
 
 /**
  * Punto de entrada — G0301 Layout Managers y Bordes.
- * Toda UI debe crearse en el Event Dispatch Thread (EDT).
+ *
+ * NO modificar esta clase.
+ * Toda la UI se construye en el Event Dispatch Thread (EDT).
  */
 public class Main {
     public static void main(String[] args) {
