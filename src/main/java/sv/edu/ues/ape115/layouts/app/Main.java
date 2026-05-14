@@ -1,6 +1,7 @@
 package sv.edu.ues.ape115.layouts.app;
 
 import sv.edu.ues.ape115.layouts.ui.VentanaProductos;
+import sv.edu.ues.ape115.layouts.ui.*;
 import javax.swing.SwingUtilities;
 
 /**
@@ -12,5 +13,7 @@ import javax.swing.SwingUtilities;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new VentanaProductos().setVisible(true));
+       // SwingUtilities.invokeLater(() -> new AppMenuLateral().setVisible(true));
+
     }
 }
